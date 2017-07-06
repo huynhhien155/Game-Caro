@@ -43,6 +43,8 @@ namespace GameCaro
                         Location = new Point(oldButton.Location.X + oldButton.Width, oldButton.Location.Y)
                     };
 
+                    btn.Click += btn_Click;
+
                     ChessBoard.Controls.Add(btn);
 
                     oldButton = btn;
@@ -51,6 +53,14 @@ namespace GameCaro
                 oldButton.Width = 0;
                 oldButton.Height = 0;
             }
+        }
+
+        void btn_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+
+            Button btn = sender as Button;
+
         }
         #endregion
     }
