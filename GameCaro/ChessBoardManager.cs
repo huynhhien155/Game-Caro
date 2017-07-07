@@ -117,9 +117,6 @@ namespace GameCaro
             if (btn.BackgroundImage != null)
                 return;
 
-            btn.BackgroundImage = Player[CurrentPlayer].Mark;
-
-            CurrentPlayer = CurrentPlayer == 1 ? 0 : 1;
 
             Mark(btn);
 
