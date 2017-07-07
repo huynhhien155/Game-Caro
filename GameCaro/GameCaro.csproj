@@ -54,6 +54,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -84,10 +85,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="pictures\caro.jpg" />
-    <Content Include="pictures\circle-shape-outline %281%29.png" />
-    <Content Include="pictures\circle-shape-outline %282%29.png" />
-    <Content Include="pictures\circle-shape-outline %283%29.png" />
-    <Content Include="pictures\circle-shape-outline.png" />
+    <Content Include="pictures\circle%281%29.png" />
+    <Content Include="pictures\circle%282%29.png" />
+    <Content Include="pictures\circle%283%29.png" />
     <Content Include="pictures\close %281%29.png" />
     <Content Include="pictures\close %282%29.png" />
     <Content Include="pictures\close %283%29.png" />

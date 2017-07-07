@@ -19,12 +19,67 @@ namespace GameCaro
             set { chessBoard = value; }
         }
 
+        private List<Player> player;
+        public List<Player> Player
+        {
+            get
+            {
+                return player;
+            }
+
+            set
+            {
+                player = value;
+            }
+        }
+
+        private int currentPlayer;
+        public int CurrentPlayer
+        {
+            get
+            {
+                return currentPlayer;
+            }
+
+            set
+            {
+                currentPlayer = value;
+            }
+        }
+
+        private TextBox playerName;
+
+        public TextBox PlayerName
+        {
+            get { return playerName; }
+            set { playerName = value; }
+        }
+
+        private PictureBox playerMark;
+
+        public PictureBox PlayerMark
+        {
+            get { return playerMark; }
+            set { playerMark = value; }
+        }
+
         #endregion
 
         #region Initialize
-        public ChessBoardManager(Panel chessBoard)
+        public ChessBoardManager(Panel chessBoard,TextBox playerName,PictureBox mark)
         {
             this.ChessBoard = chessBoard;
+            this.PlayerName = playerName;
+            this.PlayerMark = mark;
+
+            this.Player = new List<Player>() {
+                new Player("Justice",Image.FromFile(Application.StartupPath + "\\pictures\\close.png")),
+                new Player("Villians",Image.FromFile(Application.StartupPath + "\\pictures\\circle(1).png"))
+            };
+
+            CurrentPlayer = 0;
+
+            ChangePlayer();
         }
         #endregion
 
@@ -57,11 +112,34 @@ namespace GameCaro
 
         void btn_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
-
             Button btn = sender as Button;
 
+            if (btn.BackgroundImage != null)
+                return;
+
+            btn.BackgroundImage = Player[CurrentPlayer].Mark;
+
+            CurrentPlayer = CurrentPlayer == 1 ? 0 : 1;
+
+            Mark(btn);
+
+            ChangePlayer();
         }
+
+        private void Mark(Button btn)
+        {
+            btn.BackgroundImage = Player[CurrentPlayer].Mark;
+
+            CurrentPlayer = CurrentPlayer == 1 ? 0 : 1;
+        }
+
+        private void ChangePlayer()
+        {
+            PlayerName.Text = Player[CurrentPlayer].Name;
+
+            PlayerMark.Image = Player[CurrentPlayer].Mark;
+        }
+
         #endregion
     }
 }
