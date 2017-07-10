@@ -38,6 +38,8 @@ namespace GameCaro
         {
             tmCoolDown.Stop();
             pnlChessBoard.Enabled = false;
+            undoToolStripMenuItem.Enabled = false;
+
             MessageBox.Show("End Game!!!");
         }
 
@@ -45,7 +47,7 @@ namespace GameCaro
         {
             prcbCoolDown.Value = 0;
             tmCoolDown.Stop();
-
+            undoToolStripMenuItem.Enabled = true;
             ChessBoard.DrawChessBoard();
                         
         }
@@ -57,7 +59,7 @@ namespace GameCaro
 
         void Undo()
         {
-
+            ChessBoard.Undo();
         }
 
         private void ChessBoard_PlayerMarked(object sender, EventArgs e)
