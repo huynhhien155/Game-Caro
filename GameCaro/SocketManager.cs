@@ -16,12 +16,11 @@ namespace GameCaro
     {
         #region Client
         Socket client;
-
         public bool ConnectServer()
         {
-            IPEndPoint iep = new IPEndPoint(IPAddress.Parse(IP),PORT);
+            IPEndPoint iep = new IPEndPoint(IPAddress.Parse(IP), PORT);
             client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                        
+
             try
             {
                 client.Connect(iep);
@@ -30,11 +29,11 @@ namespace GameCaro
             catch
             {
                 return false;
-            }            
+            }
         }
         #endregion
 
-        #region Server
+        #region server
 
         Socket server;
         public void CreateServer()
@@ -45,36 +44,33 @@ namespace GameCaro
             server.Bind(iep);
             server.Listen(10);
 
-            Thread acceptClient = new Thread(() =>  //Anonymous methods
+            Thread acceptClient = new Thread(() =>
             {
                 client = server.Accept();
-
             });
             acceptClient.IsBackground = true;
             acceptClient.Start();
-            
         }
         #endregion
 
         #region Both
         public string IP = "127.0.0.1";
         public int PORT = 9999;
-
         public const int BUFFER = 1024;
-
         public bool isServer = true;
 
         public bool Send(object data)
         {
             byte[] sendData = SerializeData(data);
 
-            return SendData(client, sendData);                     
+            return SendData(client, sendData);
         }
-                
+
         public object Receive()
         {
             byte[] receiveData = new byte[BUFFER];
-            bool isOK = ReceiveData(client, receiveData);
+            bool isOk = ReceiveData(client, receiveData);
+
             return DeserializeData(receiveData);
         }
 
@@ -83,13 +79,13 @@ namespace GameCaro
             return target.Send(data) == 1 ? true : false;
         }
 
+
         private bool ReceiveData(Socket target, byte[] data)
         {
             return target.Receive(data) == 1 ? true : false;
         }
-
         /// <summary>
-        /// Nén đối tượng thành mảng byte
+        /// Nén đối tượng thành mảng byte[]
         /// </summary>
         /// <param name="o"></param>
         /// <returns></returns>
@@ -102,7 +98,7 @@ namespace GameCaro
         }
 
         /// <summary>
-        ///  Giải nén mảng byte thành object
+        /// Giải nén mảng byte[] thành đối tượng object
         /// </summary>
         /// <param name="theByteArray"></param>
         /// <returns></returns>
@@ -113,21 +109,22 @@ namespace GameCaro
             ms.Position = 0;
             return bf1.Deserialize(ms);
         }
+
         /// <summary>
-        /// Lấy ra ipv4 của card mạng đang dùng
+        /// Lấy ra IP V4 của card mạng đang dùng
         /// </summary>
         /// <param name="_type"></param>
         /// <returns></returns>
         public string GetLocalIPv4(NetworkInterfaceType _type)
         {
             string output = "";
-            foreach (NetworkInterface item in NetworkInterface.GetAllNetworkInterfaces()) 
+            foreach (NetworkInterface item in NetworkInterface.GetAllNetworkInterfaces())
             {
-                if(item.NetworkInterfaceType == _type && item.OperationalStatus == OperationalStatus.Up)
+                if (item.NetworkInterfaceType == _type && item.OperationalStatus == OperationalStatus.Up)
                 {
-                    foreach(UnicastIPAddressInformation ip in item.GetIPProperties().UnicastAddresses)
+                    foreach (UnicastIPAddressInformation ip in item.GetIPProperties().UnicastAddresses)
                     {
-                        if(ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                        if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
                         {
                             output = ip.Address.ToString();
                         }
@@ -136,7 +133,7 @@ namespace GameCaro
             }
             return output;
         }
-        #endregion
 
+        #endregion
     }
 }
