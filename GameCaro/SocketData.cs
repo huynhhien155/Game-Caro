@@ -49,6 +49,7 @@ namespace GameCaro
         NEW_GAME,
         UNDO,
         QUIT,
+        TIME_OUT,
         END_GAME
     }
 }

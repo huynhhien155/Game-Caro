@@ -104,8 +104,8 @@ namespace GameCaro
 
             this.Player = new List<Player>()
             {
-                new Player("HowKteam", Image.FromFile(Application.StartupPath + "\\pictures\\circle(1).png")),
-                new Player("Education", Image.FromFile(Application.StartupPath + "\\pictures\\close.png"))
+                new Player("Justice", Image.FromFile(Application.StartupPath + "\\pictures\\circle(1).png")),
+                new Player("Villains", Image.FromFile(Application.StartupPath + "\\pictures\\close.png"))
             };
 
         }
@@ -208,6 +208,20 @@ namespace GameCaro
         }
 
         public bool Undo()
+        {
+            if (PlayTimeLine.Count <= 0)
+                return false;
+
+            bool isUndo1 = UndoAStep();
+            bool isUndo2 = UndoAStep();
+
+            PlayInfo oldPoint = PlayTimeLine.Peek();
+            CurrentPlayer = oldPoint.CurrentPlayer == 1 ? 0 : 1;
+
+            return isUndo1 && isUndo2;
+        }
+
+        private bool UndoAStep()
         {
             if (PlayTimeLine.Count <= 0)
                 return false;
